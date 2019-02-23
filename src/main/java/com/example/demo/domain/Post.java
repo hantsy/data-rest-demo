@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -26,5 +27,8 @@ public class Post implements Serializable {
     @Enumerated(value = EnumType.STRING)
     @Builder.Default
     private Status status = Status.DRAFT;
+
+    @Builder.Default
+    private LocalDateTime createdDate = LocalDateTime.now();
 
 }

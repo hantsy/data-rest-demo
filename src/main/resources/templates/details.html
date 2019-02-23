@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Post Details</title>
+</head>
+<body>
+<!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
+<div>
+    <dl>
+        <dt>Title:</dt>
+        <dd th:text="${details.title}"></dd>
+        <dt>Content:</dt>
+        <dd th:text="${details.content}"></dd>
+        <dt>Status:</dt>
+        <dd th:text="${details.status}"></dd>
+        <dt>Created At:</dt>
+        <dd th:text="${#temporals.format(details.createdDate, 'dd/MM/yyyy')}"></dd>
+
+    </dl>
+</div>
+</body>
+</html>

@@ -5,14 +5,17 @@ import com.example.demo.domain.Post;
 import com.example.demo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/")
 public class PostWebController {
 
     private final PostRepository postRepository;
@@ -23,18 +26,18 @@ public class PostWebController {
     }
 
     @GetMapping("/posts")
-    public String listAllPosts(ModelAndView mv) {
+    public String listAllPosts(Model model) {
         List<Post> posts = this.postRepository.findAll();
-        mv.addObject("posts", posts);
-        return "post-list.xhtml";
+        model.addAttribute("posts", posts);
+        return "home";
     }
 
 
     @GetMapping("/posts/{id}")
-    public String viewPostDetails(@PathVariable Long id,  ModelAndView mv) {
+    public String viewPostDetails(@PathVariable Long id,  Model model) {
         Post post = this.postRepository.findById(id).orElseThrow(()-> new PostNotFoundException(id));
 
-        mv.addObject("post", post);
-        return "post-details.xhtml";
+        model.addAttribute("details", post);
+        return "details";
     }
 }

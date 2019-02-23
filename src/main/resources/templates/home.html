@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>POST LIST</title>
+</head>
+<body>
+
+<!-- List group -->
+<div th:if="${not #lists.isEmpty(posts)}">
+
+    <ul>
+        <li th:each="post: ${posts}">
+            <h4>
+                <a
+                    th:href="@{/posts/{id}(id=${post.id})}">
+                                <span
+                                    th:text="${'#'+post.id+' '+post.title} "></span>
+                </a>
+            </h4>
+
+
+            <p th:text="${post.content}"></p>
+
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,21 +1,27 @@
-package com.example.demo.rest;
+package com.example.demo.web;
 
 import com.example.demo.PostNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.http.ResponseEntity.notFound;
 
-@RestControllerAdvice(basePackageClasses = RestExceptionHandler.class)
+@ControllerAdvice(basePackageClasses = WebExceptionHandler.class)
 @Slf4j
-public class RestExceptionHandler {
+public class WebExceptionHandler {
 
     @ExceptionHandler(PostNotFoundException.class)
-    public ResponseEntity postNotFound(PostNotFoundException ex, WebRequest request) {
+    public ModelAndView postNotFound(PostNotFoundException ex, WebRequest request) {
         log.debug("handling PostNotFoundException:{}" + ex.getMessage());
-        return notFound().build();
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("error", ex.getMessage());
+        mav.setViewName("error");
+        return mav;
     }
 }
